@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import PageTitle from "../../../../components/page-title";
+import PageTitle from "../../../../../components/page-title";
 import { message } from "antd";
-import { getUserReports } from "../../../../api-services/reports-service";
-import ReportCard from "../../admin/reports/report-card";
+import { getUserReports } from "../../../../../api-services/reports-service";
+import ReportCard from "../../../admin/reports/reports-card";
+
+
 
 function UserReports() {
   const [reports, setReports] = useState<any>({});

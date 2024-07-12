@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import PageTitle from "../../../../components/page-title";
-import { BookingType } from "../../../../interfaces";
+import PageTitle from "../../../../../components/page-title";
+import { BookingType } from "../../../../../interfaces";
 import { Popconfirm, Table, message } from "antd";
-import {
-  cancelBooking,
-  getUserBookings,
-} from "../../../../api-services/booking-service";
-import { getDateTimeFormat } from "../../../../helpers/date-time-formats";
+import { cancelBooking, getUserBookings } from "../../../../../api-services/booking-service";
+import { getDateTimeFormat } from "../../../../../helpers/date-time-formats";
+
+
+
 
 function UserBookingsPage() {
   const [bookings, setBookings] = useState<BookingType[]>([]);
