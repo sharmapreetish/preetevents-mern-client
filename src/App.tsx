@@ -3,7 +3,7 @@ import ThemeProvider from "./theme";
 import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
 import Homepage from "./pages/private/home";
-import ProfilePage from "./pages/private/home/profile";
+import ProfilePage from "./pages/private/home";
 import PublicLayout from "./layouts/public-layout";
 import PrivateLayout from "./layouts/private-layout";
 import EventsPage from "./pages/private/admin/events";
@@ -15,6 +15,7 @@ import AdminBookingsPage from "./pages/private/admin/bookings";
 import UsersPage from "./pages/private/admin/users";
 import AdminReports from "./pages/private/admin/reports";
 import UserReports from "./pages/private/home/profile/reports/page";
+
 
 function App() {
   return (

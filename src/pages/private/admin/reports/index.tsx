@@ -4,7 +4,7 @@ import AdminReportsFilters from "./filters";
 import { Table, message } from "antd";
 import { getEvents } from "../../../../api-services/events-service";
 import { getAdminReports } from "../../../../api-services/reports-service";
-import ReportCard from "./report-card";
+import ReportCard from "./reports-card";
 
 function AdminReports() {
   const [reports, setReports] = useState<any>({});
