@@ -1,46 +1,60 @@
-import { Button } from "antd";
-import PageTitle from "../../../components/page-title";
-import { getDateTimeFormat } from "../../../helpers/date-time-formats";
+import { useEffect, useState } from "react";
 import usersGlobalStore, { UsersStoreType } from "../../../store/users-store";
+import { message } from "antd";
+import { getEvents } from "../../../api-services/events-service";
+import EventCard from "./common/event-card";
+import { EventType } from "../../../interfaces";
+import Filters from "./common/filters";
+import Spinner from "../../../components/spinner";
 
-function ProfilePage() {
-  const { currentUser }: UsersStoreType = usersGlobalStore() as UsersStoreType;
+function Homepage() {
+  const [events, setEvents] = useState<EventType[]>([]);
+  const [filters, setFilters] = useState({
+    searchText: "",
+    date: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const { currentUser } = usersGlobalStore() as UsersStoreType;
 
-  if (!currentUser) return null;
+  const getData = async (filtersObj: any) => {
+    try {
+      setLoading(true);
+      const response = await getEvents(filtersObj);
+      setEvents(response.data);
+    } catch (error) {
+      message.error("Failed to fetch data");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const renderUserProperty = (label: string, value: any) => {
+  useEffect(() => {
+    getData({ searchText: "", date: "" });
+  }, []);
+
+  if (loading) {
     return (
-      <div className="flex flex-col text-sm">
-        <span className="text-gray-500">{label}</span>
-        <span className="text-gray-800 font-semibold">{value}</span>
+      <div className="flex h-screen justify-center items-center">
+        <Spinner />
       </div>
     );
-  };
+  }
 
   return (
     <div>
-      <PageTitle title="Profile" />
+      <p className="text-gray-600 text-xl font-bold">
+        Welcome, {currentUser?.name}!!!
+      </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7">
-        {renderUserProperty("User Id", currentUser?._id)}
-        {renderUserProperty("Name", currentUser?.name)}
-        {renderUserProperty("Email", currentUser?.email)}
-        {renderUserProperty(
-          "Joined At",
-          getDateTimeFormat(currentUser.createdAt!)
-        )}
-        {renderUserProperty(
-          "Status",
-          currentUser?.isActive ? "Active" : "Inactive"
-        )}
-        {renderUserProperty("Role", currentUser?.isAdmin ? "Admin" : "User")}
-      </div>
+      <Filters filters={filters} setFilters={setFilters} onFilter={getData} />
 
-      <div className="flex justify-end">
-        <Button>Edit Profile</Button>
+      <div className="flex flex-col gap-7 mt-7">
+        {events.map((event: any) => (
+          <EventCard key={event._id} event={event} />
+        ))}
       </div>
     </div>
   );
 }
 
-export default ProfilePage;
+export default Homepage;
