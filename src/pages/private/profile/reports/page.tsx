@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import PageTitle from "../../../../../components/page-title";
+import PageTitle from "../../../../components/page-title";
 import { message } from "antd";
-import { getUserReports } from "../../../../../api-services/reports-service";
-import ReportCard from "../../../admin/reports/reports-card";
+import { getUserReports } from "../../../../api-services/reports-service";
+import ReportCard from "../../admin/reports/reports-card";
 
 
 
